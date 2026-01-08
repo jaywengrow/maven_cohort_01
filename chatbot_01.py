@@ -1,12 +1,13 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv('.env')
+load_dotenv()
 llm = OpenAI()
 
 response = llm.responses.create(
     model="gpt-4.1-nano",
-    input="Who was the first prez?"
+    input="Who was the first prez?" # no mention of country...
+    
 )
 
 print(response.output_text)
