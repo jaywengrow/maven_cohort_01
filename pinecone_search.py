@@ -19,7 +19,7 @@ results = dense_index.search(
    }
 )
 
-# print(results)
+print(results)
 
 # Convert chunks into one long string of documentation
 documentation = ""
@@ -28,4 +28,4 @@ for hit in results['result']['hits']:
    chunk_text = fields.get('chunk_text')
    documentation += chunk_text
 
-print(documentation)
+# print(documentation)

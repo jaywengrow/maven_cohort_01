@@ -7,7 +7,7 @@ llm = OpenAI()
 response = llm.responses.create(
     model="gpt-4.1-nano",
     input="Who was the first platypus president?",
-    temperature=0,                    # temperature!
+    temperature=2,                    # temperature!
     max_output_tokens=100             # max tokens!
 )
 

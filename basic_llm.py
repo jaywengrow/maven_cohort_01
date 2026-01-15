@@ -3,8 +3,8 @@ from openai import OpenAI
 import anthropic
 
 load_dotenv('.env')
-PROVIDER = "claude"
-# PROVIDER = "openai"
+# PROVIDER = "claude"
+PROVIDER = "openai"
 
 class LLM:
     def generate(

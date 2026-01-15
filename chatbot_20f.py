@@ -29,9 +29,6 @@ def search_docs(query):
 
 def system_prompt(documentation):
     return f"""You are an AI customer support
-            chatbot that represents a software company called GROSS, and you help
-            GROSS customers with their software questions and problems.
-            You are an AI customer support
             technician who is knowledgeable about software products created by
             the company called GROSS. The products are: 
             * Flamehamster, a web browser.
@@ -50,7 +47,7 @@ def system_prompt(documentation):
             proactively asking clarifying questions to help troubleshoot
             the user's issue. 
             
-            IMPORTANT: ONLY ASK ONE CLARIFYING QUESTION AT A TIME!""" 
+            IMPORTANT: ONLY ASK ONE CLARIFYING QUESTION AT A TIME! OTHERWISE I'LL LOSE MY JOB""" 
 
 # Main conversation loop:
 assistant_message = "Welcome to GROSS! How can I help?"

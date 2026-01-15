@@ -15,5 +15,5 @@ while user_input != "exit":
     user_input = input("\nUser: ")
     history += f"{llm_response_text}\n\nUser: {user_input}\n"
 
-# print("****HISTORY****")
-# print(history)
+print("****HISTORY****")
+print(history)

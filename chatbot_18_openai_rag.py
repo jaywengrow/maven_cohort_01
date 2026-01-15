@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
 import os
-from langfuse.openai import openai
+from openai import OpenAI
 from pinecone import Pinecone
 
-load_dotenv('.env')
-llm = openai
+load_dotenv()
+llm = OpenAI()                                         # OpenAI
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 dense_index = pc.Index("maven-gross")
 
@@ -27,39 +27,27 @@ def search_docs(query):
 
     return documentation
 
-def system_prompt(documentation):
+def system_prompt(documentation):             # extract system prompt
     return f"""You are an AI customer support
-            technician who is knowledgeable about software products created by
-            the company called GROSS. The products are: 
-            * Flamehamster, a web browser.
-            * Rumblechirp, an email client.
-            * GuineaPigment, a drawing tool for creating/editing SVGs
-            * EMRgency, an electronic medical record system
-            * Verbiage++, a content management system.
-
-            You are to answer user queries solely on
-            the following documentation: {documentation}.
-            
-            Be sure to make sure the user mentions the specific GROSS
-            product before giving advice.
-            
-            Also, don't rush headlong into giving advice without first
-            proactively asking clarifying questions to help troubleshoot
-            the user's issue.""" 
+            chatbot that represents a software company called GROSS, and you help
+            GROSS customers with their software questions and problems.
+            One GROSS product is a web browser called
+            Flamehamster. You are to answer user queries solely on
+            the following documentation: {documentation}""" 
 
 # Main conversation loop:
 assistant_message = "Welcome to GROSS! How can I help?"
 user_input = input(f"\nAssistant: {assistant_message}\n\nUser: ")
 
 history = [
-    {"role": "developer", "content": ""},
+    {"role": "developer", "content": ""},     # for OpenAI, system prompt goes here
     {"role": "assistant", "content": assistant_message},
     {"role": "user", "content": user_input}
 ]
 
 while user_input != "exit":
     documentation = search_docs(user_input)
-    history[0] = {"role": "developer", "content": system_prompt(documentation)}
+    history[0] = {"role": "developer", "content": system_prompt(documentation)} # rewrite system prompt
 
     response = llm.responses.create(
         model="gpt-4.1-mini",
@@ -67,14 +55,11 @@ while user_input != "exit":
         temperature=0
     )
 
-    llm_response_text = f"\nAssistant: {response.output_text}"
+    llm_response_text = f"\nAssistant: {response.output_text}"  # OpenAI output_text
     print(llm_response_text)
 
     user_input = input("\nUser: ")
     history += [
-        {"role": "assistant", "content": response.output_text},
+        {"role": "assistant", "content": response.output_text},  # OpenAI output_text
         {"role": "user", "content": user_input}
     ]
-
-print("****HISTORY****")
-print(history)

@@ -1,14 +1,22 @@
+import os
 from dotenv import load_dotenv
 from openai import OpenAI
+import yagmail  # email-sending library
 
 load_dotenv()
 llm = OpenAI()
+
+def send_email(body):  # a function that sends an email
+    yag = yagmail.SMTP(os.getenv("GMAIL_ACCOUNT"), oauth2_file="oauth.json")
+    yag.send(to="jay@commonsensedev.com", subject="Test email", contents=body)
+
+send_email("this is a test")
 
 assistant_message = "How can I help?"
 user_input = input(f"\nAssistant: {assistant_message}\n\nUser: ")
 
 history = [
-    {"role": "developer", "content": "You are a chatbot that talks like a pirate."},
+    {"role": "developer", "content": "You are a helpful chatbot."},
     {"role": "assistant", "content": assistant_message},
     {"role": "user", "content": user_input}
 ]
@@ -16,8 +24,6 @@ history = [
 while user_input != "exit":
     response = llm.responses.create(
         model="gpt-4.1-mini",
-        temperature=0,
-        max_output_tokens=1000,
         input=history,
     )
 
