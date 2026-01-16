@@ -67,10 +67,7 @@ while user_input != "exit":
     print(f"\nAssistant: {response.output_text}")
 
     user_input = input("\nUser: ")
-    history += [
-        {"role": "assistant", "content": response.output_text},
-        {"role": "user", "content": user_input}
-    ]
+    history += [{"role": "user", "content": user_input}]
 
 print("****HISTORY****")
 print(history)

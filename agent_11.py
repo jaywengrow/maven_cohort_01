@@ -55,7 +55,7 @@ def system_prompt():
     When you're ready to deploy the user's site, create the HTML and CSS in one long string,
     and deploy with the deploy_site tool.
     
-    You are also equipped with a read_webapge tool. This is helpful if the user wants
+    You are also equipped with a read_webpage tool. This is helpful if the user wants
     to point you to a specific website to use as inspiration.
 
     Go!"""
@@ -75,10 +75,7 @@ while user_input != "exit":
     print(f"\nAssistant: {response.output_text}")
 
     user_input = input("\nUser: ")
-    history += [
-        {"role": "assistant", "content": response.output_text},
-        {"role": "user", "content": user_input}
-    ]
+    history += [{"role": "user", "content": user_input}]
 
 print("****HISTORY****")
 print(history)
