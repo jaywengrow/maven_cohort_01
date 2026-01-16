@@ -153,10 +153,7 @@ with langfuse.start_as_current_observation(as_type="span", name="landing-page-co
         print(f"\nAssistant: {response.output_text}")
 
         user_input = input("\nUser: ")
-        history += [
-            {"role": "assistant", "content": response.output_text},
-            {"role": "user", "content": user_input}
-        ]
+        history += [{"role": "user", "content": user_input}]
     
     span.update(output="Conversation complete")
 
